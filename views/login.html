@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  	<meta charset="utf-8">
+  	<title>Onshape STL Sample Login</title>
+
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <script src="javascripts/jquery-1.8.3.min.js"></script>
+    <script src="javascripts/login.js"></script>
+    <br />
+    <div class="container" id="login-container">
+      <h1> Sign In </h1>
+      <h4><small>Sign in using your Onshape username and password</small></h4>
+      <div class="alert alert-danger hidden" id="form-alert"></div>
+      <form name="login" id="login" method="post" class="form-signin">
+        <input type="text" name="username" placeholder="Username" class="form-control" id="username">
+        <input type="password" name="password" placeholder="Password" class="form-control" id="password">
+        <input type="text" name="totp" placeholder="2FA Token" class="form-control hidden" id="totp">
+        <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-block">
+      </form>
+    </div>
+  </body>
+</html>

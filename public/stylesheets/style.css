@@ -1,0 +1,46 @@
+#index-container {
+  margin: 30px;
+}
+
+#login-container {
+  width: 400px;
+}
+
+#stl-tolerance-btn {
+  margin: 3px;
+}
+
+table,
+th {
+  font-family: "Open-Sans";
+  font-size: 11pt;
+  color: #333333;
+  align: left;
+  line-height: 50px;
+}
+
+#stl-menu-bar {
+  float: left;
+  width: 25%;
+  height: 100%;
+  min-height:100%;
+  overflow: scroll;
+  margin:20px;
+}
+
+#stl-viewport {
+  top: 0;
+  position:absolute;
+  right:0;
+  width: 75%;
+  height: 100%;
+  min-height:100%;
+  overflow: scroll;
+  margin: auto;
+}
+
+#stl-progress-bar {
+  position: fixed;
+  top: 50%;
+  width: 80%;
+}
