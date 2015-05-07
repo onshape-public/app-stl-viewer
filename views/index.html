@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<script src="javascripts/jquery-1.8.3.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/threejs/three.min.js"></script>
+
+<script src="javascripts/threejs/js/loaders/STLLoader.js"></script>
+<script src="javascripts/threejs/js/wip/TypedGeometry.js"></script>
+<script src="javascripts/threejs/js/Detector.js"></script>
+<script src="javascripts/threejs/js/libs/stats.min.js"></script>
+<script src="javascripts/threejs/js/controls/TrackballControls.js"></script>
+
+<script src="javascripts/index.js"></script>
+
+
+<div id="stl-container">
+
+  <div id="stl-menu-bar">
+    <table>
+      <tr>
+        <strong> Models </strong>
+        <select id="elt-select2" onchange="window.location.href = this.children[this.selectedIndex].getAttribute('href');"></select>
+      </tr>
+      <tr>
+        <td><div id="stl-viewer-container">
+          <button class="btn btn-primary btn-sm clearfix" id="stl-tolerance-btn" data-toggle="modal" data-target="#stl-tolerance-modal">
+            Change STL Tolerance
+          </button>
+
+          <div class="modal fade clearfix" id="stl-tolerance-modal" tabindex="-1" role="dialog" aria-labelledby="stlToleranceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="stlToleranceModalLabel">Change STL Tolerances</h4>
+                  <h4><small class="text-danger">Warning! Setting tolerances too low could freeze model!</small></h4>
+                </div>
+                <div class="modal-body" id="stl-tolerance-form">
+                  <form role="form">
+                    <div class="form-group">
+                      <label for="angle-tolerance">Angle Tolerance</label>
+                      <input type="number" value="0.01" step="0.01" class="form-control" id="angle-tolerance">
+                    </div>
+                    <div class="form-group">
+                      <label for="chord-tolerance">Chord Tolerance</label>
+                      <input type="number" value="0.01" step="0.01" class="form-control" id="chord-tolerance">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <span class="text-info inline">This operation will reload the model!</span>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="stl-tolerance-submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <div id="stl-viewport">
+    <div class="progress hidden clearfix" id="stl-progress-bar" style="display:none">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+        <span>Loading...</span>
+      </div>
+    </div>
+
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet">
+  </div>
+
+</div>
+</html>
