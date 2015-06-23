@@ -1,21 +1,7 @@
 var express = require('express');
-var OnshapeApi = require('./onshapeapi');
-var onshape = new OnshapeApi();
 var url = require('url');
 
 exports.renderPage = function(req, res) {
-  onshape.isLoggedIn(unescape(req.query.server), req.cookies.onshapeSessionId,
-      function(loggedIn) {
-        if (loggedIn) {
-          res.render('index');
-        } else {
-          // URL must contain query string!
-          // (Query string contains document and workspace information)
-          var search = url.parse(req.url).search;
-          res.redirect('/login' + search);
-        }
-      });
-
   res.render('index');
 };
 
@@ -25,7 +11,7 @@ exports.renderPage = function(req, res) {
  */
 exports.getStl = function(req, res) {
   // Note: binary goes in the POST body, while the IDs go in the query string.
-  // OnshapeApi automatically appends IDs in the query string while the binary 
+  // OnshapeApi automatically appends IDs in the query string while the binary
   // option is set by the client-side Javascript.
   if (!req.body.binary || !req.query.stlElementId) {
     return res.status(400);
@@ -43,7 +29,7 @@ exports.getStl = function(req, res) {
     chordTolerance = req.query.chordTolerance;
   }
 
-  onshape.getStl(unescape(req.query.server), req.body.binary === 'true',
+  getStl(unescape(req.query.server), req.body.binary === 'true',
       req.query.documentId, req.query.stlElementId,
       req.query.workspaceId, partId, angleTolerance, chordTolerance,
       req.cookies.onshapeSessionId,
@@ -53,14 +39,15 @@ exports.getStl = function(req, res) {
 };
 
 exports.getElements = function(req, res) {
-  onshape.getElementList(unescape(req.query.server), req.query.documentId,
+
+  getElementList(unescape(req.query.server), req.query.documentId,
       req.cookies.onshapeSessionId, function(success, data) {
         callback(req, res, success, data);
       });
 };
 
 exports.getParts = function(req, res) {
-  onshape.getPartsList(unescape(req.query.server), req.query.documentId, req.query.workspaceId,
+  getPartsList(unescape(req.query.server), req.query.documentId, req.query.workspaceId,
       req.cookies.onshapeSessionId, function(success, data) {
         callback(req, res, success, data);
       });
