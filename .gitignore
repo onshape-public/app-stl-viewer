@@ -1,3 +1,4 @@
 **/*.pfx
 **/.DS_Store
 nodes_modules
+.idea
