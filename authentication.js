@@ -24,6 +24,7 @@ function init() {
   passport.use(new OnshapeStrategy({
       clientID: oauthClientId,
       clientSecret: oauthClientSecret,
+      // Replace the callbackURL string with your own deployed servers path to handle the OAuth redirect
       callbackURL: "https://onshape-app-stl.herokuapp.com/oauthRedirect",
       authorizationURL: "https://partner.dev.onshape.com/oauth/authorize",
       tokenURL: "https://partner.dev.onshape.com/oauth/token",
@@ -36,9 +37,9 @@ function init() {
         profile.accessToken = accessToken;
         profile.refreshToken = refreshToken;
 
-        // To keep the example simple, the user's GitHub profile is returned to
+        // To keep the example simple, the user's Onshape profile is returned to
         // represent the logged-in user.  In a typical application, you would want
-        // to associate the GitHub account with a user record in your database,
+        // to associate the Onshape account with a user record in your database,
         // and return that user instead.
         return done(null, profile);
       });
