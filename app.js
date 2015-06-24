@@ -84,7 +84,7 @@ app.use('/oauthSignin', storeExtraParams,
   }
 );
 
-var StateMap = new Object();
+var StateMap = {};
 
 function storeExtraParams(req, res) {
     var docId = req.query.documentId;
@@ -95,7 +95,7 @@ function storeExtraParams(req, res) {
         documentId : docId,
         workspaceId : workId,
         elementId : elId
-    }
+    };
 
     var params = JSON.stringify(state);
     var id = uuid.v4(state);
