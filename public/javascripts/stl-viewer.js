@@ -3,6 +3,7 @@
   var container, stats;
   var camera, controls, scene, renderer;
   var loadedModels = [];
+  var elementsDict;
 
   window.onload = function() {
     // prevent mouse clicks from going to model while dialog is open
@@ -21,7 +22,7 @@
     init();
     loadStl(-1, -1);
     animate();
-  }
+  };
 
   function init() {
     // Initialize Camera
@@ -83,15 +84,15 @@
    */
   function loadStl(angleTolerance, chordTolerance) {
     var binary = false;
-    var url = '/getStl' + window.location.search;
+    var url = '/api/stl' + window.location.search;
     if (angleTolerance && chordTolerance) {
       url += '&angleTolerance=' + angleTolerance;
       url += '&chordTolerance=' + chordTolerance;
     }
-    
+
     $('#stl-progress-bar').removeClass('hidden');
     $.ajax(url, {
-      type: 'POST',
+      type: 'GET',
       data: {
         binary: binary
       },
@@ -102,7 +103,7 @@
             return c.charCodeAt(0);
           }));
           // Load stl data from buffer of Uint8Array
-          loadStlData(u8.buffer);  
+          loadStlData(u8.buffer);
         } else {
           // ASCII
           loadStlData(data);
@@ -118,9 +119,9 @@
    */
   function loadStlData(data) {
     var material = new THREE.MeshPhongMaterial({
-                                                ambient: 0x555555, 
-                                                color: 0xAAAAAA, 
-                                                specular: 0x111111, 
+                                                ambient: 0x555555,
+                                                color: 0xAAAAAA,
+                                                specular: 0x111111,
                                                 shininess: 200
                                               });
     // Initialize loader
@@ -191,14 +192,14 @@
   // Functions to support loading list of models to view ...
   function getElements() {
     var dfd = $.Deferred();
-    $.ajax('/getElements'+ window.location.search, {
+    $.ajax('/api/elements'+ window.location.search, {
       dataType: 'json',
-      type: 'POST',
+      type: 'GET',
       success: function(data) {
         addElements(data, dfd);
       },
       error: function() {
-//        window.location = '/login' + window.location.search;
+        console.log('An error occurred whilst GETing elements');
       }
     });
     return dfd.promise();
@@ -206,14 +207,14 @@
 
   function getParts() {
     var dfd = $.Deferred();
-    $.ajax('/getParts' + window.location.search, {
+    $.ajax('/api/parts' + window.location.search, {
       dataType: 'json',
-      type: 'POST',
+      type: 'GET',
       success: function(data) {
         addParts(data, dfd, elementsDict);
       },
       error: function() {
-//        window.location = '/login' + window.location.search;
+        console.log('An error occurred whilst GETing parts.');
       }
     });
     return dfd.promise();
@@ -229,11 +230,7 @@
         // (Query string contains document and workspace information)
         var href = "/viewstl" + window.location.search + "&stlElementId=" + data[i].id;
 
-        $("#elt-select2")
-            .append(
-            "<option href='" + href + "'>" + "Element - " + data[i].name + "</option>"
-        )
-
+        $("#elt-select2").append("<option href='" + href + "'>" + "Element - " + data[i].name + "</option>")
       }
     }
 
