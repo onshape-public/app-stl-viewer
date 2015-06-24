@@ -1,7 +1,7 @@
 var request = require('request-promise');
 var dateUtils = require('date-utils');
 var passport = require('passport');
-var OnshapeStrategy = require('./passport-onshape').Strategy;
+var OnshapeStrategy = require('passport-onshape').Strategy;
 
 var oauthClientId;
 var oauthClientSecret;
