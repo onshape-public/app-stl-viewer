@@ -51,7 +51,7 @@ exports.getParts = function(req, res) {
       req.cookies.onshapeSessionId, function(success, data) {
         callback(req, res, success, data);
       });
-}
+};
 
 function callback(req, res, success, data) {
   if (!success) {
