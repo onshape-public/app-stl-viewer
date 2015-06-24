@@ -68,10 +68,6 @@ app.use('/api', api);
 app.get('/', index.renderPage);
 app.get('/viewstl', viewStl.renderPage);
 
-app.post('/getElements', api.getElementList);
-app.post('/getStl', api.getStl);
-app.post('/getParts', api.getPartsList);
-
 // GET /oauthSignin
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Onshape authentication will involve redirecting

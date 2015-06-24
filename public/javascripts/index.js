@@ -96,7 +96,7 @@
      * in the URL query string.
      */
     function loadStl(angleTolerance, chordTolerance) {
-        var url = '/getStl' + window.location.search;
+        var url = '/api/stl' + window.location.search;
 
         // Parse the search string to make sure we have the last piece to load
         var local = window.location.search;
@@ -109,7 +109,7 @@
                 var lastLocal = local.substring(lastIndex);
                 var newLocal = baseLocal + lastLocal;
 
-                url = '/getStl' + newLocal;
+                url = '/api/stl' + newLocal;
             }
         }
 
@@ -123,7 +123,7 @@
         $('#stl-progress-bar').removeClass('hidden');
 
         $.ajax(url, {
-            type: 'POST',
+            type: 'GET',
             data: {
                 binary: binary
             },
@@ -224,9 +224,9 @@
     // Functions to support loading list of models to view ...
     function getElements() {
         var dfd = $.Deferred();
-        $.ajax('/getElements'+ window.location.search, {
+        $.ajax('/api/elements'+ window.location.search, {
             dataType: 'json',
-            type: 'POST',
+            type: 'GET',
             success: function(data) {
                 addElements(data, dfd);
             },
@@ -238,9 +238,9 @@
 
     function getParts() {
         var dfd = $.Deferred();
-        $.ajax('/getParts' + window.location.search, {
+        $.ajax('/api/parts' + window.location.search, {
             dataType: 'json',
-            type: 'POST',
+            type: 'GET',
             success: function(data) {
                 addParts(data, dfd, elementsDict);
             },

@@ -35,7 +35,7 @@ router.get('/session', function(req, res) {
   }
 });
 
-exports.getDocuments = function(req, res) {
+var getDocuments = function(req, res) {
   request.get({
     uri: 'https://partner.dev.onshape.com/api/documents',
     headers: {
@@ -56,19 +56,18 @@ exports.getDocuments = function(req, res) {
   });
 };
 
-router.getElementList = function(req, res) {
+var getElementList = function(req, res) {
   request.get({
     uri: 'https://partner.dev.onshape.com/api/documents/d/' + req.query.documentId + "/w/" + req.query.workspaceId + '/elements',
     headers: {
       'Authorization': 'Bearer ' + req.user.accessToken
     }
   }).then(function(data) {
-
     res.send(data);
   }).catch(function(data) {
     if (data.statusCode === 401) {
       authentication.refreshOAuthToken(req, res).then(function() {
-        router.getElementList(req, res);
+        getElementList(req, res);
       }).catch(function(err) {
         console.log('Error refreshing token or getting elements: ', err);
       });
@@ -78,7 +77,7 @@ router.getElementList = function(req, res) {
   });
 };
 
-router.getPartsList = function(req, res) {
+var getPartsList = function(req, res) {
   request.get({
     uri: 'https://partner.dev.onshape.com/api/parts/d/' + req.query.documentId + "/w/" + req.query.workspaceId,
     headers: {
@@ -89,7 +88,7 @@ router.getPartsList = function(req, res) {
   }).catch(function(data) {
     if (data.statusCode === 401) {
       authentication.refreshOAuthToken(req, res).then(function() {
-        getDocuments(req, res);
+        getPartsList(req, res);
       }).catch(function(err) {
         console.log('Error refreshing token or getting elements: ', err);
       });
@@ -99,14 +98,11 @@ router.getPartsList = function(req, res) {
   });
 };
 
-router.getStl = function(req, res) {
+var getStl = function(req, res) {
   var url = 'https://partner.dev.onshape.com/api/documents/' + req.query.documentId + '/export/' + req.query.stlElementId +
       '?workspaceId=' + req.query.workspaceId +
       '&format=STL&mode=' + 'text'  +
       '&scale=1&units=inch';
-  if (req.query.partId !== '') {
-//    url += '&partId=' + req.query.partId;
-  }
   if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
     url += '&angleTolerance=' + req.query.angleTolerance +'&chordTolerance=' + req.query.chordTolerance;
   }
@@ -121,7 +117,7 @@ router.getStl = function(req, res) {
   }).catch(function(data) {
     if (data.statusCode === 401) {
       authentication.refreshOAuthToken(req, res).then(function() {
-        getDocuments(req, res);
+        getStl(req, res);
       }).catch(function(err) {
         console.log('Error refreshing token or getting elements: ', err);
       });
@@ -131,8 +127,9 @@ router.getStl = function(req, res) {
   });
 };
 
-router.get('/documents', function(req, res) {
-  getDocuments(req, res);
-});
+router.get('/documents', getDocuments);
+router.get('/elements', getElementList);
+router.get('/stl', getStl);
+router.get('/parts', getPartsList);
 
 module.exports = router;
