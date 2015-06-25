@@ -99,9 +99,9 @@ var getPartsList = function(req, res) {
 };
 
 var getStl = function(req, res) {
-  var url = 'https://partner.dev.onshape.com/api/documents/' + req.query.documentId + '/export/' + req.query.stlElementId +
-      '?workspaceId=' + req.query.workspaceId +
-      '&format=STL&mode=' + 'text'  +
+  var url = 'https://partner.dev.onshape.com/api/documents/d/' + req.query.documentId +
+      '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId +'/export/' +
+      '?format=STL&mode=' + 'text'  +
       '&scale=1&units=inch';
   if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
     url += '&angleTolerance=' + req.query.angleTolerance +'&chordTolerance=' + req.query.chordTolerance;
