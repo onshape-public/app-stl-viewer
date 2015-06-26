@@ -15,25 +15,34 @@ STL could also be written to run independently of the tab in Onshape. It could c
 ####**Deploying to Heroku**
 Make sure you have Node.js and the Heroku Toolbelt installed. You will also need a Heroku account [signup is free] (https://www.heroku.com/).
 
-Execute the following commands to create a duplicate of a repository, you need to perform both a bare-clone and a mirror-push:
+Execute the following commands to create a duplicate of a repository; you need to perform both a bare-clone and a mirror-push to a newly-created bare repo (please note that you may want to use SSH instead of HTTPS, depending on your Github settings):
 
     $ git clone --bare https://github.com/onshape/app-stl-viewer.git
        # make a bare clone of the repository
     
-    $ cd os-stl-server.git
+    $ cd app-stl-viewer.git
     $ git push --mirror https://github.com/exampleuser/new-respository.git
        # mirror-push to new respository
        
     $ cd ..
-    $ rm -rf os-stl-server.git
+    $ rm -rf app-stl-viewer.git
       # remove temporary local repository
 
 ######deploy your repo on heroku
 
-    $ git clone https://github.com/exampleuser/new-respository.git  
+    $ git clone https://github.com/exampleuser/new-respository.git
+    $ cd new-repository
     $ heroku create
 
-Send the URL that Heroku produces for the new app to api-support@onshape.com, Onshape will register the app on Partner server and send back the OAUTH ID/Secret which are required for authentication.
+To regsister the new app, please send the following information to api-support@onshape.com (the output from Heroku should produce the domain name):
+
+* Application name (ex: Onshape STL Viewer Sample)
+* Application description (one sentence; ex: "Onshape STL Viewer Sample application — source code is available.")
+* URL for sign-in (ex: onshape-app-stl-viewer.herokuapp.com/oauthSignin)
+* URL for redirect (ex: onshape-app-stl-viewer.herokuapp.com/oauthRedirect)
+* Requested Format ID (ex: Onshape-Demo/Stl-viewer)
+
+Onshape will register the app on Partner server and send back the OAUTH ID/Secret which are required for authentication.
 
 Make changes to code at two places for the new URL that Heroku has produced, as shown below:
 
@@ -61,7 +70,7 @@ Make changes to code at two places for the new URL that Heroku has produced, as 
        function(accessToken, refreshToken, profile, done) {
          ........... 
 
-Push the local repo code along with code changes to heruko
+Push the local repo code along with code changes to heroku
 
     $ git add package.json
     $ git add authentication.js
