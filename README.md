@@ -36,15 +36,11 @@ Execute the following commands to create a duplicate of a repository; you need t
 
 To regsister the new app, please send the following information to api-support@onshape.com (the output from Heroku should produce the domain name):
 
-  Application name (ex: Onshape STL Viewer Sample)
-
-  Application description (one sentence; ex: "Onshape STL Viewer Sample application — source code is available.")
-
-  URL for sign-in (ex: onshape-app-stl-viewer.herokuapp.com/oauthSignin)
-
-  URL for redirect (ex: onshape-app-stl-viewer.herokuapp.com/oauthRedirect)
-
-  Requested Format ID (ex: Onshape-Demo/Stl-viewer)
+* Application name (ex: Onshape STL Viewer Sample)
+* Application description (one sentence; ex: "Onshape STL Viewer Sample application — source code is available.")
+* URL for sign-in (ex: onshape-app-stl-viewer.herokuapp.com/oauthSignin)
+* URL for redirect (ex: onshape-app-stl-viewer.herokuapp.com/oauthRedirect)
+* Requested Format ID (ex: Onshape-Demo/Stl-viewer)
 
 Onshape will register the app on Partner server and send back the OAUTH ID/Secret which are required for authentication.
 
