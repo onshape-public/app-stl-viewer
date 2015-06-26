@@ -1,9 +1,9 @@
 var express = require('express');
-var url = require('url');
 
 exports.renderPage = function(req, res) {
-  res.render('index');
+  res.render('viewstl');
 };
+
 
 function callback(req, res, success, data) {
   if (!success) {
