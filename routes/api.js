@@ -98,6 +98,9 @@ var getPartsList = function(req, res) {
   });
 };
 
+// NOTE - this interface will be deprecated in early July 2015. Export
+// functions will be moved to the relevant resources (parts,
+// partstudios, assemblies)
 var getStl = function(req, res) {
   var url = 'https://partner.dev.onshape.com/api/documents/d/' + req.query.documentId +
       '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId +'/export/' +
