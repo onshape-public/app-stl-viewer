@@ -6,8 +6,6 @@
     var previousData = false;
 
     window.onload = function() {
-        console.log("** ** ONLOAD - " + window.location.search);
-
         // prevent mouse clicks from going to model while dialog is open
         $('#stl-tolerance-modal').bind('click mousedown', function(e) {
             e.stopImmediatePropagation();
