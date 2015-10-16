@@ -98,9 +98,6 @@ var getPartsList = function(req, res) {
   });
 };
 
-// NOTE - this interface will be deprecated in early July 2015. Export
-// functions will be moved to the relevant resources (parts,
-// partstudios, assemblies)
 var getStl = function(req, res) {
   var url;
   if (req.query.partId != null) {
@@ -116,7 +113,6 @@ var getStl = function(req, res) {
     '?mode=' + 'text'  +
     '&scale=1&units=inch';
     console.log("** STL for partId " + req.query.partId);
-    return;
   }
 
   if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
