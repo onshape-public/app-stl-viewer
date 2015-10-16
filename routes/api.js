@@ -102,18 +102,21 @@ var getPartsList = function(req, res) {
 // functions will be moved to the relevant resources (parts,
 // partstudios, assemblies)
 var getStl = function(req, res) {
-  var url = 'https://partner.dev.onshape.com/api/documents/d/' + req.query.documentId +
-      '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId +'/export/' +
-      '?format=STL&mode=' + 'text'  +
-      '&scale=1&units=inch';
-  if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
-    url += '&angleTolerance=' + req.query.angleTolerance +'&chordTolerance=' + req.query.chordTolerance;
-  }
+  var url;
   if (req.query.partId != null) {
+    url = 'https://partner.dev.onshape.com/api/parts/d/' + req.query.documentId +
+    '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId +'/partid/'+ req.query.partId + '/stl/' +
+    '?mode=' + 'text'  +
+    '&scale=1&units=inch';
     console.log("** STL for partId " + req.query.partId);
   }
   else {
-    console.log("** STL - no partId");
+    res.send("ok");
+    return;
+  }
+
+  if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
+    url += '&angleTolerance=' + req.query.angleTolerance +'&chordTolerance=' + req.query.chordTolerance;
   }
 
   request.get({
