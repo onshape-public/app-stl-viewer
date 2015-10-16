@@ -109,6 +109,12 @@ var getStl = function(req, res) {
   if (req.query.angleTolerance !== '' && req.query.chordTolerance !== '') {
     url += '&angleTolerance=' + req.query.angleTolerance +'&chordTolerance=' + req.query.chordTolerance;
   }
+  if (req.query.partId != null) {
+    console.log("** STL for partId " + req.query.partId);
+  }
+  else {
+    console.log("** STL - no partId");
+  }
 
   request.get({
     uri: url,
