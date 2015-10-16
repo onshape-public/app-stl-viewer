@@ -111,7 +111,11 @@ var getStl = function(req, res) {
     console.log("** STL for partId " + req.query.partId);
   }
   else {
-    res.send("ok");
+    url = 'https://partner.dev.onshape.com/api/partstudio/d/' + req.query.documentId +
+    '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId + '/stl/' +
+    '?mode=' + 'text'  +
+    '&scale=1&units=inch';
+    console.log("** STL for partId " + req.query.partId);
     return;
   }
 
