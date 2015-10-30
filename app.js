@@ -91,7 +91,12 @@ function storeExtraParams(req, res) {
         elementId : elId
     };
 
-    var params = JSON.stringify(state);
+    var stateString = JSON.stringify(state);
+    var uniqueID = "state" + passport.session();
+
+    // Save the d/w/e to Redis instead of a global
+    client.set(uniqueID, stateString);
+
     var id = uuid.v4(state);
 
     StateMap[id] = state;
@@ -107,11 +112,14 @@ function storeExtraParams(req, res) {
 app.use('/oauthRedirect',
   passport.authenticate('onshape', { failureRedirect: '/grantDenied' }),
     function(req, res) {
-        var id = req.query.state;
-        var params = StateMap[id];
-
-        var url = '/?' + 'documentId=' + params.documentId + '&workspaceId=' + params.workspaceId + '&elementId=' + params.elementId;
+      var uniqueID = "state" + passport.session();
+      client.get(uniqueID, function(err, reply) {
+      // reply is null when the key is missing
+      if (reply != null) {
+        var newParams = JSON.parse(reply);
+        var url = '/?' + 'documentId=' + newParams.documentId + '&workspaceId=' + newParams.workspaceId + '&elementId=' + newParams.elementId;
         res.redirect(url);
+      }
     });
 
 /// catch 404 and forward to error handler
