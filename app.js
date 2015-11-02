@@ -114,12 +114,13 @@ app.use('/oauthRedirect',
     function(req, res) {
       var uniqueID = "state" + passport.session();
       client.get(uniqueID, function(err, reply) {
-      // reply is null when the key is missing
-      if (reply != null) {
-        var newParams = JSON.parse(reply);
-        var url = '/?' + 'documentId=' + newParams.documentId + '&workspaceId=' + newParams.workspaceId + '&elementId=' + newParams.elementId;
-        res.redirect(url);
-      }
+          // reply is null when the key is missing
+          if (reply != null) {
+              var newParams = JSON.parse(reply);
+              var url = '/?' + 'documentId=' + newParams.documentId + '&workspaceId=' + newParams.workspaceId + '&elementId=' + newParams.elementId;
+              res.redirect(url);
+          }
+      });
     });
 
 /// catch 404 and forward to error handler
