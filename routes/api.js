@@ -37,7 +37,7 @@ router.get('/session', function(req, res) {
 
 var getDocuments = function(req, res) {
   request.get({
-    uri: 'https://partner.dev.onshape.com/api/documents',
+    uri: 'https://cad.onshape.com/api/documents',
     headers: {
       'Authorization': 'Bearer ' + req.user.accessToken
     }
@@ -58,7 +58,7 @@ var getDocuments = function(req, res) {
 
 var getElementList = function(req, res) {
   request.get({
-    uri: 'https://partner.dev.onshape.com/api/documents/d/' + req.query.documentId + "/w/" + req.query.workspaceId + '/elements',
+    uri: 'https://cad.onshape.com/api/documents/d/' + req.query.documentId + "/w/" + req.query.workspaceId + '/elements',
     headers: {
       'Authorization': 'Bearer ' + req.user.accessToken
     }
@@ -79,7 +79,7 @@ var getElementList = function(req, res) {
 
 var getPartsList = function(req, res) {
   request.get({
-    uri: 'https://partner.dev.onshape.com/api/parts/d/' + req.query.documentId + "/w/" + req.query.workspaceId,
+    uri: 'https://cad.onshape.com/api/parts/d/' + req.query.documentId + "/w/" + req.query.workspaceId,
     headers: {
       'Authorization': 'Bearer ' + req.user.accessToken
     }
@@ -101,14 +101,14 @@ var getPartsList = function(req, res) {
 var getStl = function(req, res) {
   var url;
   if (req.query.partId != null) {
-    url = 'https://partner.dev.onshape.com/api/parts/d/' + req.query.documentId +
+    url = 'https://cad.onshape.com/api/parts/d/' + req.query.documentId +
     '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId +'/partid/'+ req.query.partId + '/stl/' +
     '?mode=' + 'text'  +
     '&scale=1&units=inch';
     console.log("** STL for partId " + req.query.partId);
   }
   else {
-    url = 'https://partner.dev.onshape.com/api/partstudio/d/' + req.query.documentId +
+    url = 'https://cad.onshape.com/api/partstudio/d/' + req.query.documentId +
     '/w/' + req.query.workspaceId + '/e/' + req.query.stlElementId + '/stl/' +
     '?mode=' + 'text'  +
     '&scale=1&units=inch';
