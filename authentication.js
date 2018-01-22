@@ -43,7 +43,7 @@ function init() {
       callbackURL: callbackUrl,
       authorizationURL: oauthUrl + "/oauth/authorize",
       tokenURL: oauthUrl + "/oauth/token",
-      userProfileURL: apiUrl + "/api/users/current"
+      userProfileURL: apiUrl + "/api/users/sessioninfo"
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
