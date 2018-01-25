@@ -21,6 +21,8 @@ if (process.env.REDISTOGO_URL) {
   client = require("redis").createClient(rtg.port, rtg.hostname);
 
   client.auth(rtg.auth.split(":")[1]);
+} else if (process.env.REDIS_HOST && process.env.REDIS_PORT) {
+  client = require("redis").createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 } else {
   client = redis.createClient();
 }
