@@ -1,0 +1,16 @@
+redis:
+  image: redis
+  ports:
+    - "6379"
+app-stl-viewer:
+  build: .
+  environment:
+    - OAUTH_CLIENT_ID
+    - OAUTH_CLIENT_SECRET
+    - OAUTH_CALLBACK_URL
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
+  ports:
+    - "3000:3000"
+  links:
+    - redis
