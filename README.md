@@ -32,9 +32,15 @@ Execute the following commands to create a duplicate of a repository; you need t
 
 To create the new app, you will need to use the [Developer Portal](https://dev-portal.onshape.com) to create an OAuth app (the output from Heroku should produce the domain name) and then create a Store Entry, which will not be visible to the public.  You will then need to subscribe to the app through the [App Store](https://appstore.onshape.com) in order to add it to your documents.  See the Developer Portal [documentation](https://dev-portal.onshape.com/help) for more information.
 
+The following Application Settings must be set:
+
+    Redirect URL:       https://newURL-from-heroku.herokuapp.com/oauthRedirect
+
+    iframe URL:         https://newURL-from-heroku.herokuapp.com/oauthSignin
+
 Make changes to code at two places for the new URL that Heroku has produced, as shown below:
 
-    file# 1: ./package.json
+    file #1: ./package.json
 
        .........
        ........
@@ -43,6 +49,14 @@ Make changes to code at two places for the new URL that Heroku has produced, as 
        "url": "https://newURL-from-heroku.herokuapp.com/"
        },
        ...........
+    
+    file #2: ./authentication.js
+
+        ........
+        var callbackUrl = "https://newURL-from-heroku.herokuapp.com/oauthRedirect";
+        var oauthUrl = 'https://oauth.onshape.com';
+        var apiUrl = 'https://cad.onshape.com';
+        ........
 
 Push the local repo code along with code changes to heroku
 
@@ -56,7 +70,7 @@ You will need to set the ID and Secret as environment variables on the server. T
 
     $ heroku config:set OAUTH_CLIENT_ID=<ID given by Onshape for this app>
     $ heroku config:set OAUTH_CLIENT_SECRET=<Secret given by Onshape for this app>
-    $ heroku config:set OAUTH_CALLBACK_URL=<https://newURL-from-heroku.herokuapp.com>
+    $ heroku config:set OAUTH_CALLBACK_URL=<https://newURL-from-heroku.herokuapp.com/oauthRedirect>
 
 You can verify that they are set by calling this:
 
