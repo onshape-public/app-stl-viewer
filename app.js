@@ -91,7 +91,8 @@ function storeExtraParams(req, res) {
      var state = {
         documentId : docId,
         workspaceId : workId,
-        elementId : elId
+        elementId : elId,
+        server : server
     };
 
     var stateString = JSON.stringify(state);
