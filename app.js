@@ -86,6 +86,7 @@ function storeExtraParams(req, res) {
     var docId = req.query.documentId;
     var workId = req.query.workspaceId;
     var elId = req.query.elementId;
+    var server = req.query.server;
 
      var state = {
         documentId : docId,
@@ -119,7 +120,7 @@ app.use('/oauthRedirect',
           // reply is null when the key is missing
           if (reply != null) {
               var newParams = JSON.parse(reply);
-              var url = '/?' + 'documentId=' + newParams.documentId + '&workspaceId=' + newParams.workspaceId + '&elementId=' + newParams.elementId;
+              var url = '/?' + 'documentId=' + newParams.documentId + '&workspaceId=' + newParams.workspaceId + '&elementId=' + newParams.elementId + '&server=' + newParams.server;
               res.redirect(url);
           }
       });
